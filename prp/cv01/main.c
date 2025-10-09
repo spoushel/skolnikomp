@@ -23,7 +23,6 @@ int getn(int *n)
         fprintf(stderr, "Spatnej vstup bro integer\n");
         return 100;
     }
-    else if (*n < 1 || *n > 9)
     {
         fprintf(stderr, "Spatnej vstup bro zas\n");
         return 101;

@@ -1,0 +1,7 @@
+Ze standardního vstupu načtěte dvě celá čísla v rozsahu [-10 000; 10 000] včetně krajních hodnot. V případě chyby načítání vstupu, program vypíše “Chyba nacitani vstupu!\n” na standardní chybový výstup a končí s návratovou hodnotou “100”.
+Pokud bude některá vstupní hodnota mimo interval, tak vypiště “Error: Vstup je mimo interval!” na standardní chybový výstup (stderr) a ukončete program s návratovou hodnotou “100”.
+Vypište čísla v dekadickém a hexadecimálním tvaru na standardní výstup.
+Dále vypište celočíselný součet, rozdíl a součin obou čísel.
+Vypište celočíselný podíl obou čísel. Pokud by mělo nastat dělení nulou, vypište výsledek NaN a na stderr “Error: Nedefinovany vysledek!” a program ukončete s návratovou hodnotou “101”.
+Vypočtěte průměrnou hodnotu obou čísel a vypište ji na standardní výstup s přesností na jedno desetinné místo.
+Dodržte očekávané formátování, zvláště pak mezery a tzv. bílé znaky. Na konci výstupu je vždy konec řádku.

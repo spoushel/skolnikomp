@@ -1,0 +1,33 @@
+cat > .gitignore <<'GITIGNORE'
+# System
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+*~
+
+# OS temp
+.Trashes
+.cache/
+
+# Build / binaries
+*.o
+*.out
+*.class
+a.out
+node_modules/
+
+# Large media and archives (example — remove or adapt)
+*.iso
+*.zip
+*.tar.gz
+*.mp4
+*.mov
+
+# Credentials (example)
+*.pem
+*.key
+*.env
+GITIGNORE
