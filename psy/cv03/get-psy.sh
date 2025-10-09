@@ -1,0 +1,1 @@
+find . -name "*.txt" && grep "isa" ./* | wc -l | cat 
