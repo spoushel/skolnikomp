@@ -29,7 +29,7 @@ int load_input(int *num1, int *num2) {
         return ERROR_RANGE_EOF;
     }   
     int ch = 0;
-    while ((ch = getchar()) != '\n' && ch != EOF) {
+    while ((ch = getchar()) != '\n') {
         if (ch == '.') {
             fprintf(stderr, "Chyba nacitani vstupu!\n");
             return EXIT_FAILURE;
