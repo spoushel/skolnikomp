@@ -3,69 +3,112 @@
 
 #define MIN 3
 #define MAX 69
-#define ERROR_VSTUP 100
+#define ERROR_INPUT 100
 #define ERROR_RANGE 101
 #define ERROR_ODD 102
+#define ERROR_FENCE_HEIGHT 103
 
-int nacti_checkni_cisla(int *sirka, int *vysk, int input);
-int nakresli_domecek(int *sirka, int *vyska);
-void nakresli_body(int *sirka, int *vyska);
-void nakresli_strechu(int *sirka);
+int load_check_nums(int *width, int *height, int *fencesize, int input);
+int print_house(int *width, int *height, int fencesize);
+void print_body(int *width, int *height, int fencesize);
+void print_roof(int *width);
+void print_single_fence(int fencesize, int rowtype);
 
 int main(void) {
-    int vyska = 0, sirka = 0;
-    int input = scanf("%d %d", &sirka, &vyska);
-    int result = nacti_checkni_cisla(&sirka, &vyska, input);
+    int height = 0, width = 0, fencesize = 0;
+    int input = scanf("%d %d", &width, &height);
+
+    if (input == 2 && width == height) {
+        if (scanf("%d", &fencesize) == 1) {
+            input = 3;
+        } else {
+            input = -1;
+        }
+    }
+    int result = load_check_nums(&width, &height, &fencesize, input);
     if (result != 0) {
         return result;
     } else {
-        return nakresli_domecek(&sirka, &vyska);
+        return print_house(&width, &height, fencesize);
     }
 }
 
-int nacti_checkni_cisla(int *sirka, int *vyska, int input) {
-    if (input != 2) {
+int load_check_nums(int *width, int *height, int *fencesize, int input) {
+    if (input != 2 && input != 3) {
         fprintf(stderr, "Error: Chybny vstup!\n");
-        return ERROR_VSTUP;
+        return ERROR_INPUT;
     }
-
-    if (*sirka < MIN || *vyska > MAX || *sirka < MIN || *vyska < MIN) {
+    if (*width < MIN || *width > MAX || *height > MAX || *height < MIN) {
         fprintf(stderr, "Error: Vstup mimo interval!\n");
         return ERROR_RANGE;
     }
-    if (*sirka % 2 == 0) {
+    if (*width % 2 == 0) {
         fprintf(stderr, "Error: Sirka neni liche cislo!\n");
         return ERROR_ODD;
+    }
+    if (input == 3) {
+        if (*fencesize <= 0) {
+            fprintf(stderr, "Error: Neplatna velikost plotu!\n");
+            return ERROR_FENCE_HEIGHT;
+        }
+        if (*fencesize >= *height) {
+            fprintf(stderr, "Error: Neplatna velikost plotu!\n");
+            return ERROR_FENCE_HEIGHT;
+        }
     }
     return EXIT_SUCCESS;
 }
 
-int nakresli_domecek(int *sirka, int *vyska) {
-    nakresli_strechu(sirka);
-    nakresli_body(sirka, vyska);
+int print_house(int *width, int *height, int fencesize) {
+    print_roof(width);
+    print_body(width, height, fencesize);
     return 0;
 }
 
-void nakresli_body(int *sirka, int *vyska) {
-    for (int i = 0; i < *sirka; ++i) {
+void print_body(int *width, int *height, int fencesize) {
+    // top row
+    for (int i = 0; i < *width; ++i) {
         printf("X");
     }
     printf("\n");
-    for (int i = 0; i < *vyska - 2; ++i) {
+
+    //middle rows
+    for (int i = 0; i < *height - 2; ++i) {
         printf("X");
-        for (int i = 0; i < *sirka - 2; ++i) {
-            printf(" ");
+        //vnitrek prostredku
+
+        for (int j = 0; j < *width - 2; ++j) {
+            if (fencesize > 0) {
+                if ((i+j) % 2 == 0) {
+                printf("o");
+                } else {
+                printf("*");
+                }
+            } else {
+                printf(" ");
+            }
+            
         }
-        printf("X\n");
-    }
-    for (int i = 0; i < *sirka; ++i) {
         printf("X");
+
+        if (fencesize > 0 && i >= (*height - 1 - fencesize)) {
+            int fence_row = i - (*height - fencesize -1);
+            print_single_fence(fencesize, fence_row);
+        }
+        printf("\n");
+    }
+    //bottom
+    for (int i = 0; i < *width; ++i) {
+        printf("X");
+    }
+    if (fencesize > 0) {
+        print_single_fence(fencesize, 0);
     }
     printf("\n"); 
 }
 
-void nakresli_strechu(int *sirka) {
-    int roof_height = (*sirka + 1) / 2;
+void print_roof(int *width) {
+    int roof_height = (*width + 1) / 2;
     for (int i = 0; i < (roof_height - 1); ++i) {
         int front_spaces = roof_height - 1 - i;
         int middle_spaces = (i == 0) ? 0 : 2 * i - 1;
@@ -77,6 +120,22 @@ void nakresli_strechu(int *sirka) {
         }
         printf("\n");
     }
-
 }
 
+void print_single_fence(int fencesize, int row_type) {
+    for (int i = 0; i < fencesize; ++i) {
+        if (row_type == 0) {
+            if ((fencesize - i) % 2 != 0) {
+                printf("|");
+            } else {
+                printf("-");
+            }
+        } else {
+            if ((fencesize - i) % 2 != 0) {
+                printf("|");
+            } else {
+                printf(" ");
+            }
+        }
+    }
+}
