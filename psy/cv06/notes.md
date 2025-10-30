@@ -1,0 +1,7 @@
+- soubory se kompiluji nezavisle
+- volani funkci z jinych souboru
+- .o objektovy soubor funkce + dalsi
+- '#' pragma once / if not def - aby nebyl nakopirovany soubor, deklarace etcz vice mist, neni standartni
+- clang / gcc 1.c 2.c -o neconeco.o
+- linker
+- makefile je uplne jedno header file
