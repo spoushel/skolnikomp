@@ -1,0 +1,12 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define MAX_NAME_LEN 50
+#define MAX_STUDENTS 100
+#define MAX_COURSES 20
+#define MAX_GRADES_PER_STUDENT 10
+#define MAX_COURSE_CODE_LEN 10
+#define GRADE_HISTOGRAM_BINS 10
+#define DEFAULT_CREDITS 4
+
+#endif
